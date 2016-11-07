@@ -64,6 +64,7 @@ $(login_form).submit(function(e) {
   .done(function(response) {
       // Make sure that the formMessages div has the 'success' class.
       console.log("success");
+      window.location.href = 'main.html'
   })
   .fail(function(data) {
 
@@ -97,6 +98,7 @@ $(signup_form).submit(function(e) {
   })
   .done(function(response) {
       // Make sure that the formMessages div has the 'success' class.
+      alert("Welcome to UMBC Xchange! \n Please Log In.");
       console.log("success");
   })
   .fail(function(data) {
