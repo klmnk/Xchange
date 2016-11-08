@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
+<head>
     <title>home-products</title>
 </head>
 
@@ -33,16 +33,22 @@ if (!$items)
     exit('<p> Error: ' . mysql_error() . '</p>');  
 }  
 
+// due to time constraints hard-coded for the demo/testing purpose
+$counter = 1;
+
 if ($items->num_rows > 0) 
 {
     // print out items 3 in a row
-    echo "<ul>";
     while($row = $items->fetch_assoc()) 
-    {
-        echo "<h4>" . $row["item_name"] . "</h4> <br>";
-        echo "<img src=" . $row["image_link"] . " alt=" . $row["item_name"] . " height='200' width='200' ". ">";
+    {	
+
+        echo "<p style='display: inline;'>" . $row["item_name"];
+        echo "<img src=" . $row["image_link"] . " alt=" . $row["item_name"] . " height='200' width='200' " . ">" . "</p>";
+
+        if ($counter%3==0) { echo "<br>"; }
+        $counter++;
     }
-    echo "</ul>  <br>";
+
 } 
 
 // close the connection
