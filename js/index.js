@@ -70,11 +70,13 @@ $(login_form).submit(function(e) {
 
       console.log("fail");
       // Set the message text.
+	/*
       if (data.responseText !== '') {
           $(formMessages).text(data.responseText);
       } else {
           $(formMessages).text('Oops! An error occured and your message could not be sent.');
       }
+	*/
   });
 
 });
@@ -105,11 +107,13 @@ $(signup_form).submit(function(e) {
 
       console.log("fail");
       // Set the message text.
+      /*
       if (data.responseText !== '') {
           $(formMessages).text(data.responseText);
       } else {
           $(formMessages).text('Oops! An error occured and your message could not be sent.');
       }
+	*/
   });
 
 });
