@@ -34,20 +34,20 @@ if (!$items)
 }  
 
 // due to time constraints hard-coded for the demo/testing purpose
-//$counter = 1;
-$i = 1;
+$counter = 1;
 $displayAllProducts = "";
 if ($items->num_rows > 0) 
 {
     // print out items 3 in a row
     while($row = $items->fetch_assoc()) 
     {	
-     //   echo "<p style='display: inline;'>" . $row["item_name"];
-     //   echo "<img src=" . $row["image_link"] . " alt=" . $row["item_name"] . " height='200' width='200' " . ">" . "</p>";
 
-	if($i%3 == 1) {   // If number is 1,4,7,etc start a new row
+
+	if($counter%3 == 1)  // If number is 1,4,7,etc start a new row
+	{  
 	$displayAllProducts.= "<tr>"; 
 	}
+
 	$displayAllProducts.=
 	    "
 		<td>    
@@ -57,27 +57,25 @@ if ($items->num_rows > 0)
 		</table> 
 		</td>  
 	     ";
-	if($i%3 == 0) {   // If number is 3,6,9,etc close the row
-	$displayAllProducts.= "</tr>";
+	if($counter%3 == 0) // If number is 3,6,9,etc close the row
+	{   
+		$displayAllProducts.= "</tr>";
 	}
-	$i++; // increase the counter to start again
+
+	$counter++; // increase the counter to start again
 	
 	}  // ends the loop
 
-	if($i%3 != 0){
-	$displayAllProducts.= "</tr>";	
+	if($counter%3 != 0)
+	{
+		$displayAllProducts.= "</tr>";	
 	}
 	
-
-     //   if ($counter%3==0) { echo "<br>"; }
-     //   $counter++;
 	echo "<table>";
 	print $displayAllProducts;
 	echo "</table>";
     }
-	$file = "/opt/lampp/temp/allproducts.html";
-	touch($file);
-	file_put_contents($file, $displayAllProducts);
+
 
 // close the connection
 $conn->close();
