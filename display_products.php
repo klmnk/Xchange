@@ -25,7 +25,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$items_query = "SELECT * FROM `Items`";
+$items_query = "SELECT * FROM `Products` ORDER BY category";
 $items = $conn->query($items_query);
 
 if (!$items) 
@@ -41,7 +41,6 @@ if ($items->num_rows > 0)
     // print out items 3 in a row
     while($row = $items->fetch_assoc()) 
     {	
-
 
 	if($counter%3 == 1)  // If number is 1,4,7,etc start a new row
 	{  
