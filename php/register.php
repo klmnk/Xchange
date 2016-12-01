@@ -2,9 +2,8 @@
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-
-print_r($_POST);
-
+	$email = $_POST['email'];
+}
 //	print_r($_POST);
 
 //information for connecting to database
@@ -22,16 +21,27 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$items_query = "SELECT * FROM `Products` ORDER BY category";
+$user_query = "SELECT * FROM `Users` WHERE `umbcid` = '$email'";
 
-$items = $conn->query($items_query);
+$users = $conn->query($user_query);
 
+if (!$users) 
+{  
+    exit('<p> Error: ' . mysql_error() . '</p>');  
+}  
 
+if ($users->num_rows > 0) 
+{
+    // print out items 3 in a row
+    while($row = $users->fetch_assoc()) 
+    {	
+		echo "this user already exists";
+    }
 
+} 
 
-//header("Location: http://localhost/Xchange/main.html"); /* Redirect to main page */
-exit();
+// close the connection
+$conn->close();
 
-}
 
 ?>
