@@ -9,9 +9,9 @@
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-	<!-- Optional theme -->
+	<!-- Optional theme
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
+	-->
 	<link rel="stylesheet" type="text/css" href="./css/main.css">
 
   <!-- Import jQuery -->
@@ -25,9 +25,9 @@
   <body>
 
     <div class="titleBar">
-        <img src="./images/200px-UMBCRetrievers.png" style="height:100%; float:left; padding-left:30px"><br />
+        <img src="./images/logoko.png" style="height:100%; float:left; padding-left:30px"><br />
         <p style="font-size:20px;margin-bottom:5px;">UMBC Xchange platform</p>
- 
+
 	<div class="row">
 	 <div class="col-lg-6 col-md-offset-2">
 	    <div class="input-group">
@@ -39,19 +39,76 @@
 	  </div><!-- /.col-lg-6 -->
 	</div> <!--row-->
 
-	
+
     </div>
 
     <div class="sideMenu">
-        <div class="sideBarButton"><a href="display_products.php" target="content_iframe">Home</a></div>
-        <div class="sideBarButton"><a href="show_profile.php" target="content_iframe">Profile</a></div>
-        <div class="sideBarButton"><a href="show_favorites.php" target="content_iframe">Favorites</a></div>
-        <div class="sideBarButton"><a href="#">Messages</a></div>
+       <!-- <div class="sideBarButton"><a href="display_products.php" target="content_iframe">Home</a></div>-->
+	<div class="sideBarButton"><a class="sideBarLink" id = "homePage" onclick="showPage(this.id)">Home</a></div>
+        <div class="sideBarButton"><a class="sideBarLink" id = "profilePage" onclick="showPage(this.id)">Profile</a></div>
+        <div class="sideBarButton"><a class="sideBarLink" href="show_favorites.php" target="content_iframe">Favorites</a></div>
+        <div class="sideBarButton"><a class="sideBarLink" href="#">Messages</a></div>
     </div>
 
-    <div class="content">
-        <iframe src="display_products.php" name="content_iframe"></iframe>
+ <!--   <div class="content" src="" id="content_frame" name="content_iframe"> -->
+        <!--<iframe src="display_products.php" name="content_iframe"></iframe>-->
+<div class="content" id="content_frame" name="content_iframe">
+
+</div>
+
+
+
+ <!--   </div>  -->
+
+  <!-- Item Details Modal -->
+  <div class="modal fade" id="itemDetailModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Upload File</h4>
+        </div>
+        <div class="modal-body">
+            <form id="uploadForm" METHOD=post ENCTYPE='multipart/form-data' action="file_handler.php">
+                <INPUT NAME=uploadFile id="uploadFile"  TYPE="file" required>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+       <!--   <button type="button" type="submit" class="btn btn-primary" onclick="showItemDetails()">Upload</button> -->
+        </div>
+      </div>
+
     </div>
+  </div>
 
   </body>
+   <script>
+function showPage(id)
+{
+	alert(id);
+	var url = "";
+	if (id == "homePage"){url = './php/show_home.php';}
+	else if(id == "profilePage"){url = './php/show_profile.php';}
+	else if(id == "favoritesPage"){url = './php/show_favorites.php';}
+	else if(id == "uploadPage"){url = './php/show_upload.php';}
+	
+	$.get(url, function(data) {
+ 		 $('#content_frame').html(data);
+	});
+
+
+
+}
+
+function showItemDetails(id)
+{
+	console.log("show item details");
+	alert(id);
+}
+
+    </script>
+
 </html>

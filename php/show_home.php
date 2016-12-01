@@ -15,7 +15,9 @@ if ($conn->connect_error) {
 } 
 
 $items_query = "SELECT * FROM `Products` ORDER BY category";
+
 $items = $conn->query($items_query);
+////
 
 if (!$items) 
 {  
@@ -24,7 +26,12 @@ if (!$items)
 
 // due to time constraints hard-coded for the demo/testing purpose
 $counter = 1;
-$displayAllProducts = "";
+$displayAllProducts = '<div class="container">
+			<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+	    		<h2>Select products or services</h2>
+			</div>			
+			</div>';
 //$displayAllProducts .= "<table>";
 if ($items->num_rows > 0) 
 {
@@ -37,47 +44,42 @@ if ($items->num_rows > 0)
 	if($counter%3 == 1)  // If number is 1,4,7,etc start a new row
 	{  
 	// show category as its own row before each new row
-	$displayAllProducts.= "<td><table><tr><td><h2>" . $row["category"] . "</h2></td></tr></table></td>";
-	$displayAllProducts.= "<tr>";
+	$displayAllProducts.= '<div class="row">';
 	}
 	
-	$displayAllProducts.=
-	    "
-		<td>    
-		<table>  
-		<tr><td><center>" . "<b>" . $row['item_name'] . "</b>" . "</center></td></tr>" .
-		"<tr><td colspan ='2'><div><img src=" . "'" . $row["image_link"] . "'" . " width = '200' height = '200'" . "id="."'".$row["id"]."'"."></div></td></tr>
-		</table> 
-		</td>  
-	     ";
-	
-	// add spaces between items in a row     
-	$displayAllProducts.= "<td><table><tr><td><h2>"."<pre>"."      "."</pre>"."</h2></td></tr></table></td>";
+	$displayAllProducts.='<div class="col-md-3">
+			      <div class="thumbnail">
+				<a href="/w3images/nature.jpg" target="_blank">
+				  <img src="'.$row["image_link"].'" alt="Moustiers Sainte Marie" style="width:100%">
+				  <div class="caption">
+				    <p>Lorem ipsum donec id elit non mi porta gravida at eget metus.</p>
+				  </div>
+				</a>
+			      </div>
+			    </div>';
+
+
 	
 	if($counter%3 == 0) // If number is 3,6,9,etc close the row
 	{   
-		$displayAllProducts.= "<td><table><tr><td> <a href='#'>see more in this category</a></td></tr></table></td>";
-		$displayAllProducts.= "</tr>";
+		$displayAllProducts.= "</div>";
 	}
 
 	$counter++; // increase the counter to start again
 	
-	}  // ends the loop
+      }  // ends While loop
 
 	if($counter%3 != 0)
 	{
-		$displayAllProducts.= "</tr>";	
+		$displayAllProducts.= "</div>";	
 	}
 	
 
-	echo "<table>";
-	echo $displayAllProducts;
-	echo "</table>";
+
+	$displayAllProducts .=  '</div>'; //Close container
+	print $displayAllProducts;
     }
 
-
-// close the connection
 $conn->close();
 
 ?>
-
