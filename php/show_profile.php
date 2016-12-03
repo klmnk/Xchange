@@ -19,22 +19,22 @@ $conn = new mysqli($servername, $username, $password, $DBname);
 // Validate the connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-} 
+}
 
 // temporarily hard-coded
 $user_query = "SELECT * FROM  `Users` WHERE  `id` = 3";
 $user = $conn->query($user_query);
 
-if (!$user) 
-{  
-    exit('<p> Error: ' . mysql_error() . '</p>');  
-}  
+if (!$user)
+{
+    exit('<p> Error: ' . mysql_error() . '</p>');
+}
 
-if ($user->num_rows > 0) 
+if ($user->num_rows > 0)
 {
     // print out items 3 in a row
-    while($row = $user->fetch_assoc()) 
-    {	
+    while($row = $user->fetch_assoc())
+    {
 
 		$firstname = $row["firstname"] ;
 		$lastname = $row["lastname"] ;
@@ -54,82 +54,91 @@ if ($user->num_rows > 0)
 	*/
     }
 
-} 
+}
 // close the connection
 $conn->close();
-
-
-
 ?>
 
-
+<!-- Container for user details -->
 <div class="container">
-<form class="form-horizontal">
-<fieldset>
-
-<!-- Form Name -->
 <legend>User Details</legend>
+<div class="row">
+
+  <div class="col-md-3">
+  <div class="card" >
+    <img src="./images/img_avatar.png" id="userImage" alt="Avatar" style="width:100%">
+    <div class="container">
+      <h4><b><?php echo $firstname . ' ' . $lastname ;?></b></h4>
+      <p><?php echo $user_since;?></p>
+    </div>
+  </div>
+</div>
+
+  <div class="col-md-8"> <!-- form column -->
+  <form class="form-horizontal">
+  <fieldset>
+  <!-- Form Name -->
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="basicdetails_caption">First Name</label>  
+  <label class="col-md-4 control-label" for="basicdetails_caption">First Name</label>
   <div class="col-md-4">
   <input id="basicdetails_caption" name="basicdetails_caption" type="text" placeholder="<?php echo $firstname;?>" class="form-control input-md" >
-  
+
   </div>
 </div>
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="basicdetails_duration">Last Name</label>  
+  <label class="col-md-4 control-label" for="basicdetails_duration">Last Name</label>
   <div class="col-md-4">
   <input id="basicdetails_duration" name="basicdetails_duration" type="text" placeholder="<?php echo $lastname;?>" class="form-control input-md">
-    
+
   </div>
 </div>
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="basicdetails_duration">UMBC ID</label>  
+  <label class="col-md-4 control-label" for="basicdetails_duration">UMBC ID</label>
   <div class="col-md-4">
   <input id="basicdetails_duration" name="basicdetails_duration" type="text" placeholder="<?php echo $ID;?>" class="form-control input-md">
-    
+
   </div>
 </div>
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="basicdetails_duration">Rating</label>  
+  <label class="col-md-4 control-label" for="basicdetails_duration">Rating</label>
   <div class="col-md-4">
   <input id="basicdetails_duration" name="basicdetails_duration" type="text" placeholder="enter duration" class="form-control input-md">
-    
+
   </div>
 </div>
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="basicdetails_duration">User since</label>  
+  <label class="col-md-4 control-label" for="basicdetails_duration">User since</label>
   <div class="col-md-4">
   <input id="basicdetails_duration" name="basicdetails_duration" type="text" placeholder="<?php echo $user_since;?>" class="form-control input-md">
-    
+
   </div>
 </div>
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="basicdetails_duration">Purchased</label>  
+  <label class="col-md-4 control-label" for="basicdetails_duration">Purchased</label>
   <div class="col-md-4">
   <input id="basicdetails_duration" name="basicdetails_duration" type="text" placeholder="enter duration" class="form-control input-md">
-    
+
   </div>
 </div>
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="basicdetails_duration">Sold</label>  
+  <label class="col-md-4 control-label" for="basicdetails_duration">Sold</label>
   <div class="col-md-4">
   <input id="basicdetails_duration" name="basicdetails_duration" type="text" placeholder="enter duration" class="form-control input-md">
-    
+
   </div>
 </div>
 <!--
@@ -141,7 +150,7 @@ $conn->close();
 
 
 
-<!-- Select Basic -->
+<!-- Select Basic
 <div class="form-group">
   <label class="col-md-4 control-label" for="basicdetails_quality">UMBC ID</label>
   <div class="col-md-4">
@@ -151,6 +160,16 @@ $conn->close();
     </select>
   </div>
 </div>
+ -->
+  <div class="form-group">
+    <div class="row">
+      <div class="col-md-4 col-md-offset-5">
+        <button type="button" id="resetPswdBtn" class="btn btn-default"><span class="glyphicon glyphicon-lock"></span> Reset Password</button>
+      </div>
+    </div>
+  </div>
+</div> <!-- end of user details div -->
+</div> <!-- end of row -->
 
 </fieldset>
 </form>

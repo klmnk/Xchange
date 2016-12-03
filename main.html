@@ -15,7 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="./css/main.css">
 
   <!-- Import jQuery -->
-  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -29,7 +29,7 @@
         <!--<p style="font-size:20px;margin-bottom:5px;">UMBC Xchange platform</p>-->
 
 	<div class="row">
-	 <div class="col-lg-6 col-md-offset-2">
+	 <div class="col-md-6 col-md-offset-2">
 	    <div class="input-group">
 	      <input type="text" class="form-control" placeholder="Search for...">
 	      <span class="input-group-btn">
@@ -37,10 +37,13 @@
 	      </span>
 	    </div><!-- /input-group -->
 	  </div><!-- /.col-lg-6 -->
+    <div class="col-md-4">
+      <button type="button" id="logoutBtn" class="btn btn-default pull-right"><span class="glyphicon glyphicon-user"></span>  Logout</button>
+    </div>
 	</div> <!--row-->
 
 
-    </div>
+</div> <!--titleBar-->
 
     <div class="sideMenu">
        <!-- <div class="sideBarButton"><a href="display_products.php" target="content_iframe">Home</a></div>-->
@@ -48,7 +51,7 @@
         <div class="sideBarButton"><a class="sideBarLink" id = "profilePage" onclick="showPage(this.id)">Profile</a></div>
         <div class="sideBarButton"><a class="sideBarLink" href="show_favorites.php" target="content_iframe">Favorites</a></div>
         <div class="sideBarButton"><a class="sideBarLink" href="#">Messages</a></div>
-    </div>
+    </div><!--sideMenu -->
 
  <!--   <div class="content" src="" id="content_frame" name="content_iframe"> -->
         <!--<iframe src="display_products.php" name="content_iframe"></iframe>-->
@@ -57,75 +60,247 @@
 </div>
 
 
+<div class="modal hide fade in" id="myModal" style="display: none;">
+    <div class="modal-header">
+        <a class="close" href="#">×</a>
+        <h3>Modal Heading</h3>
+    </div>
+    <div class="modal-body">
+         <p>One fine body…</p>
+    </div>
+    <div class="modal-footer">
+        <a class="btn primary" href="#">Primary</a>
+        <a class="btn secondary" href="#">Secondary</a>
+    </div>
+ </div>
 
- <!--   </div>  -->
 
-  <!-- Item Details Modal -->
-  <div class="modal fade" id="itemDetailModal" role="dialog">
+ <!-- Modal -->
+<div id="myModal2" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- password reset modal -->
+<div class="modal fade" id="password_modal" role="dialog">
     <div class="modal-dialog">
-
-      <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Upload File</h4>
-        </div>
-        <div class="modal-body">
-            <form id="uploadForm" METHOD=post ENCTYPE='multipart/form-data' action="file_handler.php">
-                <INPUT NAME=uploadFile id="uploadFile"  TYPE="file" required>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-       <!--   <button type="button" type="submit" class="btn btn-primary" onclick="showItemDetails()">Upload</button> -->
-        </div>
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h3>Change Password <span class="extra-title muted"></span></h3>
+    </div>
+         <div class="modal-body form-horizontal">
+          <div class="control-group">
+              <label for="current_password" class="control-label">Current Password</label>
+              <div class="controls">
+                  <input type="password" name="current_password">
+              </div>
+          </div>
+          <div class="control-group">
+              <label for="new_password" class="control-label">New Password</label>
+              <div class="controls">
+                  <input type="password" name="new_password">
+              </div>
+          </div>
+          <div class="control-group">
+            <label for="confirm_password" class="control-label">Confirm Password</label>
+            <div class="controls">
+              <input type="password" name="confirm_password">
+            </div>
+          </div>
+          </div>
+          <div class="modal-footer">
+        <button href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button href="#" class="btn btn-primary" id="password_modal_save">Save changes</button>
       </div>
     </div>
   </div>
+</div><!--change password modal -->
 
-  <!-- password reset modal -->
-  <div class="modal" id="password_modal">
-<div class="modal-header">
-  <h3>Change Password <span class="extra-title muted"></span></h3>
-</div>
-<div class="modal-body form-horizontal">
-  <div class="control-group">
-      <label for="current_password" class="control-label">Current Password</label>
-      <div class="controls">
-          <input type="password" name="current_password">
+<!-- Upload User Picture Modal -->
+<div class="modal fade" id="uploadUserPictureModal" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Select New Profile Pictue</h4>
       </div>
-  </div>
-  <div class="control-group">
-      <label for="new_password" class="control-label">New Password</label>
-      <div class="controls">
-          <input type="password" name="new_password">
+      <div class="modal-body">
+          <form id="uploadForm" METHOD=post ENCTYPE='multipart/form-data' action="file_handler.php">
+              <INPUT NAME=uploadFile id="uploadFile"  TYPE="file" accept="image/*"  required>
+          </form>
       </div>
-  </div>
-  <div class="control-group">
-      <label for="confirm_password" class="control-label">Confirm Password</label>
-      <div class="controls">
-          <input type="password" name="confirm_password">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" type="submit" class="btn btn-primary" onclick="uploadCSV()">Upload</button>
       </div>
+    </div>
+
   </div>
-</div>
-<div class="modal-footer">
-  <button href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-  <button href="#" class="btn btn-primary" id="password_modal_save">Save changes</button>
-</div>
 </div>
 
+<!-- Logout modal -->
 
+<div class="modal bs-example-modal-sm" id="logOutModal"tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4>Logout <i class="fa fa-lock"></i></h4>
+      </div>
+      <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to log-out?</div>
+      <div class="modal-footer"><a href="javascript:;" class="btn btn-primary btn-block">Logout</a></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Item Details Modal -->
+
+<!-- Modal -->
+            <div class="modal" id="itemDetailsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="text-danger fa fa-times"></i></button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="text-muted fa fa-shopping-cart"></i> <strong>02051</strong> - Nome do Produto </h4>
+                  </div>
+                  <div class="modal-body">
+
+                    <table class="pull-left col-md-8 ">
+                         <tbody>
+                             <tr>
+                                 <td class="h6"><strong>Código</strong></td>
+                                 <td> </td>
+                                 <td class="h5">02051</td>
+                             </tr>
+
+                             <tr>
+                                 <td class="h6"><strong>Descrição</strong></td>
+                                 <td> </td>
+                                 <td class="h5">descrição do produto</td>
+                             </tr>
+
+                             <tr>
+                                 <td class="h6"><strong>Marca/Fornecedor</strong></td>
+                                 <td> </td>
+                                 <td class="h5">Marca do produto</td>
+                             </tr>
+
+                             <tr>
+                                 <td class="h6"><strong>Número Original</strong></td>
+                                 <td> </td>
+                                 <td class="h5">0230316</td>
+                             </tr>
+
+                             <tr>
+                                 <td class="h6"><strong>Código N.C.M</strong></td>
+                                 <td> </td>
+                                 <td class="h5">032165</td>
+                             </tr>
+
+                             <tr>
+                                 <td class="h6"><strong>Código de Barras</strong></td>
+                                 <td> </td>
+                                 <td class="h5">0321649843</td>
+                             </tr>
+
+                             <tr>
+                                 <td class="h6"><strong>Unid. por Embalagem</strong></td>
+                                 <td> </td>
+                                 <td class="h5">50</td>
+                             </tr>
+
+                             <tr>
+                                 <td class="h6"><strong>Quantidade Mínima</strong></td>
+                                 <td> </td>
+                                 <td class="h5">50</td>
+                             </tr>
+
+                             <tr>
+                                 <td class="h6"><strong>Preço Atacado</strong></td>
+                                 <td> </td>
+                                 <td class="h5">R$ 35,00</td>
+                             </tr>
+
+                             <tr>
+                                 <td class="btn-mais-info text-primary">
+                                     <i class="open_info fa fa-plus-square-o"></i>
+                                     <i class="open_info hide fa fa-minus-square-o"></i> informações
+                                 </td>
+                                 <td> </td>
+                                 <td class="h5"></td>
+                             </tr>
+                         </tbody>
+                    </table>
+
+                    <div class="col-md-4">
+                        <img src="http://lorempixel.com/150/150/technics/" alt="teste" class="img-thumbnail">
+                    </div>
+
+                    <div class="clearfix"></div>
+                   <p class="open_info hide">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                  </div>
+
+                  <div class="modal-footer">
+
+                    <div class="text-right pull-right col-md-3">
+                        Varejo: <br/>
+                        <span class="h3 text-muted"><strong> R$50,00 </strong></span></span>
+                    </div>
+
+                    <div class="text-right pull-right col-md-3">
+                        Atacado: <br/>
+                        <span class="h3 text-muted"><strong>R$35,00</strong></span>
+                    </div>
+
+                </div>
+              </div>
+            </div>
+            </div>
+<!-- fim Modal-->
+
+
+<!-- Item Details Modal-->
 
   </body>
    <script>
 
+   $( "#logoutBtn" ).click(function() {
 
+     console.log("clicked");
+      // $("#logOutModal").modal('show');
+       $("#logOutModal").modal('show');
+
+
+   });
 
    $(function() {
 
      // Handler for .ready() called.
    $("#content_frame").on("click", "#resetPswdBtn", function(){
        $("#password_modal").modal('show');
+   });
+   $("#content_frame").on("click", "#userImage", function(){
+       $("#uploadUserPictureModal").modal('show');
    });
 
 
@@ -153,6 +328,11 @@
         {
         	console.log("show item details");
         	alert(id);
+        }
+
+        function showItemDetails(){
+            $("#itemDetailsModal").modal('show');
+
         }
 
 
