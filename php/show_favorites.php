@@ -12,17 +12,13 @@ $conn = new mysqli($servername, $username, $password, $DBname);
 // Validate the connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-<<<<<<< HEAD
 } 
 
-=======
-}
->>>>>>> a07582363a3756ff4f48941fe1877a97c13b950b
 
 $items_query = "SELECT * FROM `Products` ORDER BY category";
 
 $items = $conn->query($items_query);
-////
+
 
 if (!$items)
 {
@@ -32,19 +28,19 @@ if (!$items)
 // due to time constraints hard-coded for the demo/testing purpose
 $counter = 1;
 $displayAllProducts = '<div class="container">
-<<<<<<< HEAD
+
             <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <h2>Your Wish List</h2>
             </div>
-            </div>';
-=======
+            </div>
+
 			<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 	    		<h2>Favorite Items</h2>
 			</div>
 			</div>';
->>>>>>> a07582363a3756ff4f48941fe1877a97c13b950b
+			
 //$displayAllProducts .= "<table>";
 if ($items->num_rows > 0)
 {
@@ -52,7 +48,6 @@ if ($items->num_rows > 0)
     while($row = $items->fetch_assoc())
     {
 
-<<<<<<< HEAD
     //print_r($row);
 
     if($counter%3 == 1)  // If number is 1,4,7,etc start a new row
@@ -97,7 +92,7 @@ if ($items->num_rows > 0)
 
 
 // close the connection
-=======
+
 	//print_r($row);
 
 	if($counter%3 == 1)  // If number is 1,4,7,etc start a new row
@@ -127,7 +122,6 @@ if ($items->num_rows > 0)
 
 	$counter++; // increase the counter to start again
 
-      }  // ends While loop
 
 	if($counter%3 != 0)
 	{
@@ -138,9 +132,9 @@ if ($items->num_rows > 0)
 
 	$displayAllProducts .=  '</div>'; //Close container
 	print $displayAllProducts;
-    }
 
->>>>>>> a07582363a3756ff4f48941fe1877a97c13b950b
+
+
 $conn->close();
 
 ?>
