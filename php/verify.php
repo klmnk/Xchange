@@ -35,14 +35,13 @@ if (!$users)
     exit('<p> Error: this email was not found.  ' . mysql_error() . '</p>');  
 }  
 
-if (!$users->num_rows > 0) 
-{
-
-    while($row = $users->fetch_assoc()) 
-    {	
-		echo "this email has not been registered before.";
-    }
-} 
+// if (!$users->num_rows > 0) 
+// {
+//     while($row = $users->fetch_assoc()) 
+//     {	
+// 		echo "this email has not been registered before.";
+//     }
+// } 
 
 else {
 
