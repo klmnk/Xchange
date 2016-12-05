@@ -110,17 +110,30 @@
    });
 
 
+
+$(document).ready(function() {
+  // Hide the 'cover' div
+    console.log("page was loaded");
+});
+
+   /*show additional info in Item Details Modal */
    $('.btn-mais-info').on('click', function(event) {
        $( '.open_info' ).toggleClass( "hide" );
    })
-   
+
+
+   $(".img").on("load",function(){
+             console.log("all images were loaded");
+       });
 
    $(function() {
 
-
+     //Start loading items when first time redirected to main.html
              	$.get('./php/show_home.php', function(data) {
               		 $('#content_frame').html(data);
              	});
+
+
 
      // Handler for .ready() called.
    $("#content_frame").on("click", "#resetPswdBtn", function(){
