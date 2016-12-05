@@ -50,7 +50,7 @@ if ($items->num_rows > 0)
 	$displayAllProducts.='<div class="col-md-3">
 			      <div class="thumbnail">
 		<!--		<a href="/w3images/nature.jpg" target="_blank"> -->
-        <a onclick="javascript:showItemDetails(this)" >
+        <a id = "'. $row["id"].'"onclick="javascript:showItemDetails(this.id)" >
     		  <img src="'.$row["image_link"].'" alt="Moustiers Sainte Marie" style="width:100%">
 				  <div class="caption">
 				    <p>Lorem ipsum donec id elit non mi porta gravida at eget metus.</p>

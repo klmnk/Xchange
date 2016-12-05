@@ -170,15 +170,64 @@ $(document).ready(function() {
 
         function showItemDetails(id)
         {
-        	console.log("show item details");
-        	alert(id);
-        }
+        	console.log("show item details"+ id);
+        //	alert(id);
+      //    var formData = new FormData();
+      //    formData.append("item_id", id);
+      //    var itemData = $(formData).serialize();
+          // Get Item details with AJAX call
+        //  var itemData =[];
+        //  itemData['item_id'] = id;
+          $.ajax({
+              type: 'POST',
+          //    dataType: 'json',
+              url: './php/get_item_details.php',
+          //    data: JSON.stringify({'item_id':id}),
+                data: {'item_id':id},
+          })
+          .done(function(data) {
+              // Make sure that the formMessages div has the 'success' class.
+            //  console.log(data);
+            //Parse JSON object
+          var objData = jQuery.parseJSON(data);
+          
+          if(objData.result == 'success')
+          {
 
+                  var modalLabel = '<i class="text-muted fa fa-shopping-cart"></i> <strong>' + objData.item_name + '</strong>';
+                  $("#myModalLabel").html(modalLabel);
+                  var itemDetailsImage = '<img src="'+objData.image_link+'" alt="teste" class="img-thumbnail">';
+                  $("#itemDetailsImage").html(itemDetailsImage);
+                  $("#itemSoldBy").html(objData.seller);
+                  $("#itemCondition").html(objData.condition);
+                  $("#itemDescription").html(objData.description);
+
+                  $("#itemDetailsModal").modal('show');
+
+          }
+          else if(objData.result == 'error')
+          {
+            console.log("error occured when trying to retrieve information");
+            //$('#userNotFound').show();
+          }
+
+
+          })
+          .fail(function(data) {
+
+              console.log("fail");
+              // Set the message text.
+          });
+
+
+
+        }
+/*
         function showItemDetails(){
             $("#itemDetailsModal").modal('show');
 
         }
-
+*/
 
 
 
