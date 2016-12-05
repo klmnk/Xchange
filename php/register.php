@@ -15,6 +15,7 @@ $username = "umbcxchange";
 $password = "umbcxchange";
 $DBname = "umbcxchange";
 
+$responseData  = [];
 
 // Create connection to the database
 $conn = new mysqli($servername, $username, $password, $DBname);
@@ -22,57 +23,65 @@ $conn = new mysqli($servername, $username, $password, $DBname);
 // Validate the connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-} 
+}
 
 $count_query = "SELECT * FROM `Users`";
 $count = $conn->query($count_query);
 $num_users = 0;
-if (!$count) 
-{  
-    exit('<p> Error: ' . mysql_error() . '</p>');  
-}  
-
-if ($count->num_rows > 0) 
+if (!$count)
 {
-    while($row = $count->fetch_assoc()) 
-    {	
+	$responseData['result'] =  mysql_error();
+		exit();
+//    exit('<p> Error: ' . mysql_error() . '</p>');
+}
+
+if ($count->num_rows > 0)
+{
+    while($row = $count->fetch_assoc())
+    {
 		$num_users = $num_users + 1;
     }
     $num_users = $num_users + 1;
-} 
+}
 
 
 $user_query = "SELECT * FROM `Users` WHERE `umbcid` = '$email'";
 
 $users = $conn->query($user_query);
 
-if (!$users) 
-{  
-    exit('<p> Error: ' . mysql_error() . '</p>');  
-}  
+if (!$users)
+{  $responseData['result'] = mysql_error();
 
-if ($users->num_rows > 0) 
+//    exit('<p> Error: ' . mysql_error() . '</p>');
+}
+
+if ($users->num_rows > 0)
 {
 
-    while($row = $users->fetch_assoc()) 
-    {	
-		echo "this email has already been registered";
+    while($row = $users->fetch_assoc())
+    {
+		   $responseData['result'] = "User already exist";
+			 //echo "this email has already been registered";
     }
-} 
+}
 
 
 else {
 	$insert_query = "INSERT INTO Users (id, umbcid, firstname, lastname, password) VALUES ('$num_users','$email', '$first_name', '$last_name', '$user_password')";
 	if ($conn->query($insert_query) === TRUE) {
-    	echo "";
-	} 
+		$responseData['result'] = "success";
+    //	echo "";
+	}
 	else {
-    	echo "Error: " . $sql . "<br>" . $conn->error;
+		$responseData['result'] = $sql . ' ' .$conn->error ;
+    //	echo "Error: " . $sql . "<br>" . $conn->error;
 	}
 }
 
 // close the connection
 $conn->close();
-
+//response to a client
+echo json_encode($responseData);
+exit();
 
 ?>

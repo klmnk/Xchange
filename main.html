@@ -23,7 +23,32 @@
 
   </head>
   <body>
+<?php
 
+ //Check for user's cookie. If cookie doesn't exist redirect to login page
+ $userName = $_POST['cookie_name'];
+ $cookie_name = $_POST['cookie_name'];
+ $cookie_value = $_POST['cookie_value'];
+
+ if(!isset($_COOKIE[$cookie_name]))
+ {
+
+   header("Location: index.html"); /* Redirect browser */
+   exit();
+
+ }
+ else
+ {
+       if($_COOKIE[$cookie_name] != $cookie_value)
+       {
+         header("Location: index.html"); /* Redirect browser */
+         exit();
+
+       }
+ }
+
+
+  ?>
     <div class="titleBar">
         <img src="./images/logoko.png" style="height:100%; float:left; padding-left:30px"><br />
 <!-- <<<<<<< HEAD -->
@@ -171,7 +196,7 @@
           <h4>Logout <i class="fa fa-lock"></i></h4>
       </div>
       <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to log-out?</div>
-      <div class="modal-footer"><a href="javascript:;" class="btn btn-primary btn-block">Logout</a></div>
+      <div class="modal-footer"><a href="./php/logout.php?username=<?php echo $userName;?>" class="btn btn-primary btn-block">Logout</a></div>
     </div>
   </div>
 </div>
@@ -279,25 +304,33 @@
                 </div>
               </div>
             </div>
-            </div>
-<!-- fim Modal-->
+            </div><!-- Item Details Modal-->
 
-
-<!-- Item Details Modal-->
 
   </body>
    <script>
+
+   var userName = <?php echo "'".$userName."'";?>;
 
    $( "#logoutBtn" ).click(function() {
 
      console.log("clicked");
       // $("#logOutModal").modal('show');
+      console.log("user " + userName + " was logged out");
        $("#logOutModal").modal('show');
 
 
    });
 
+
+
+
    $(function() {
+
+
+             	$.get('./php/show_home.php', function(data) {
+              		 $('#content_frame').html(data);
+             	});
 
      // Handler for .ready() called.
    $("#content_frame").on("click", "#resetPswdBtn", function(){
