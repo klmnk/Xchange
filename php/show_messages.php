@@ -12,12 +12,7 @@ $conn = new mysqli($servername, $username, $password, $DBname);
 // Validate the connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-<<<<<<< HEAD
-} 
-
-=======
 }
->>>>>>> a07582363a3756ff4f48941fe1877a97c13b950b
 
 $items_query = "SELECT * FROM `Products` ORDER BY category";
 
@@ -32,19 +27,11 @@ if (!$items)
 // due to time constraints hard-coded for the demo/testing purpose
 $counter = 1;
 $displayAllProducts = '<div class="container">
-<<<<<<< HEAD
-            <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <h2>Your Wish List</h2>
-            </div>
-            </div>';
-=======
 			<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-	    		<h2>Favorite Items</h2>
+	    		<h2>Select products or services</h2>
 			</div>
 			</div>';
->>>>>>> a07582363a3756ff4f48941fe1877a97c13b950b
 //$displayAllProducts .= "<table>";
 if ($items->num_rows > 0)
 {
@@ -52,52 +39,6 @@ if ($items->num_rows > 0)
     while($row = $items->fetch_assoc())
     {
 
-<<<<<<< HEAD
-    //print_r($row);
-
-    if($counter%3 == 1)  // If number is 1,4,7,etc start a new row
-    {
-    // show category as its own row before each new row
-    $displayAllProducts.= '<div class="row">';
-    }
-
-    $displayAllProducts.='<div class="col-md-3">
-                  <div class="thumbnail">
-        <!--        <a href="/w3images/nature.jpg" target="_blank"> -->
-        <a onclick="javascript:showItemDetails(this)" >
-              <img src="'.$row["image_link"].'" alt="Moustiers Sainte Marie" style="width:100%">
-                  <div class="caption">
-                    <p>Lorem ipsum donec id elit non mi porta gravida at eget metus.</p>
-                  </div>
-                </a>
-                  </div>
-                </div>';
-
-
-
-    if($counter%3 == 0) // If number is 3,6,9,etc close the row
-    {
-        $displayAllProducts.= "</div>";
-    }
-
-    $counter++; // increase the counter to start again
-
-      }  // ends While loop
-
-    if($counter%3 != 0)
-    {
-        $displayAllProducts.= "</div>";
-    }
-
-
-
-    $displayAllProducts .=  '</div>'; //Close container
-    print $displayAllProducts;
-    }
-
-
-// close the connection
-=======
 	//print_r($row);
 
 	if($counter%3 == 1)  // If number is 1,4,7,etc start a new row
@@ -140,7 +81,6 @@ if ($items->num_rows > 0)
 	print $displayAllProducts;
     }
 
->>>>>>> a07582363a3756ff4f48941fe1877a97c13b950b
 $conn->close();
 
 ?>

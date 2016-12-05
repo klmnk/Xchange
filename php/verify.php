@@ -32,7 +32,6 @@ $user_query = "SELECT * FROM `Users` WHERE `umbcid` = '$email'";
 $users = $conn->query($user_query);
 
 
-<<<<<<< HEAD
 // if (!$users->num_rows > 0) 
 // {
 //     while($row = $users->fetch_assoc()) 
@@ -40,13 +39,12 @@ $users = $conn->query($user_query);
 // 		echo "this email has not been registered before.";
 //     }
 // } 
-=======
+
 if (!($users->num_rows > 0))
 {
     $responseData['result']  = "user was not found";
 
 }
->>>>>>> 8a53e39e9b2141248e9f1024c56c7a2929b120be
 
 else {
 
