@@ -23,7 +23,32 @@
 
   </head>
   <body>
+<?php
 
+ //Check for user's cookie. If cookie doesn't exist redirect to login page
+ $userName = $_POST['cookie_name'];
+ $cookie_name = $_POST['cookie_name'];
+ $cookie_value = $_POST['cookie_value'];
+
+ if(!isset($_COOKIE[$cookie_name]))
+ {
+
+   header("Location: index.html"); /* Redirect browser */
+   exit();
+
+ }
+ else
+ {
+       if($_COOKIE[$cookie_name] != $cookie_value)
+       {
+         header("Location: index.html"); /* Redirect browser */
+         exit();
+
+       }
+ }
+
+
+  ?>
     <div class="titleBar">
         <img src="./images/logoko.png" style="height:100%; float:left; padding-left:30px"><br />
 <!-- <<<<<<< HEAD -->
@@ -53,8 +78,14 @@
        <!-- <div class="sideBarButton"><a href="display_products.php" target="content_iframe">Home</a></div>-->
 	<div class="sideBarButton"><a class="sideBarLink" id = "homePage" onclick="showPage(this.id)">Home</a></div>
         <div class="sideBarButton"><a class="sideBarLink" id = "profilePage" onclick="showPage(this.id)">Profile</a></div>
+<<<<<<< HEAD
         <div class="sideBarButton"><a class="sideBarLink" id = "favoritesPage" onclick="showPage(this.id)">Favorites</a></div> 
         <div class="sideBarButton"><a class="sideBarLink" href="#">Messages</a></div>
+=======
+        <div class="sideBarButton"><a class="sideBarLink" id = "favoritesPage" onclick="showPage(this.id)">My Favorites</a></div>
+        <div class="sideBarButton"><a class="sideBarLink" id = "myItemsPage" onclick="showPage(this.id)">My Items</a></div>
+        <div class="sideBarButton"><a class="sideBarLink" id = "messagesPage" onclick="showPage(this.id)">Messages</a></div>
+>>>>>>> 8a53e39e9b2141248e9f1024c56c7a2929b120be
     </div><!--sideMenu -->
 
  <!--   <div class="content" src="" id="content_frame" name="content_iframe"> -->
@@ -171,7 +202,7 @@
           <h4>Logout <i class="fa fa-lock"></i></h4>
       </div>
       <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to log-out?</div>
-      <div class="modal-footer"><a href="javascript:;" class="btn btn-primary btn-block">Logout</a></div>
+      <div class="modal-footer"><a href="./php/logout.php?username=<?php echo $userName;?>" class="btn btn-primary btn-block">Logout</a></div>
     </div>
   </div>
 </div>
@@ -279,25 +310,33 @@
                 </div>
               </div>
             </div>
-            </div>
-<!-- fim Modal-->
+            </div><!-- Item Details Modal-->
 
-
-<!-- Item Details Modal-->
 
   </body>
    <script>
+
+   var userName = <?php echo "'".$userName."'";?>;
 
    $( "#logoutBtn" ).click(function() {
 
      console.log("clicked");
       // $("#logOutModal").modal('show');
+      console.log("user " + userName + " was logged out");
        $("#logOutModal").modal('show');
 
 
    });
 
+
+
+
    $(function() {
+
+
+             	$.get('./php/show_home.php', function(data) {
+              		 $('#content_frame').html(data);
+             	});
 
      // Handler for .ready() called.
    $("#content_frame").on("click", "#resetPswdBtn", function(){
@@ -319,6 +358,9 @@
         	else if(id == "profilePage"){url = './php/show_profile.php';}
         	else if(id == "favoritesPage"){url = './php/show_favorites.php';}
         	else if(id == "uploadPage"){url = './php/show_upload.php';}
+          else if(id == "favoritesPage"){url = './php/show_favorites.php';}
+          else if(id == "myItemsPage"){url = './php/show_myItems.php';}
+          else if(id == "messagesPage"){url = './php/show_messages.php';}
 
         	$.get(url, function(data) {
          		 $('#content_frame').html(data);

@@ -61,13 +61,32 @@ $(login_form).submit(function(e) {
   // Submit the form using AJAX.
   $.ajax({
       type: 'POST',
+      dataType: 'json',	
       url: $(login_form).attr('action'),
       data: loginFormData
   })
-  .done(function(response) {
+  .done(function(data) {
       // Make sure that the formMessages div has the 'success' class.
-      console.log("success!");
-      window.location.href = 'main.html'
+	if(data.result == 'success')
+	{
+	      	console.log(data.cookie_name);
+	       	console.log(data.cookie_value);
+		
+	   //   window.location.href = 'main.html'
+		$("#cookie_name").val(data.cookie_name);
+		$("#cookie_value").val(data.cookie_value);
+		$("#submitUserForm").submit();
+		
+	}
+	else if(data.result == 'user was not found')
+	{
+		$('#userNotFound').show();
+	}
+	else if(data.result == 'password does not match')
+	{
+		$('#wrongPassword').show();
+	}
+ 
   })
   .fail(function(data) {
 
@@ -105,13 +124,26 @@ $(signup_form).submit(function(e) {
   // Submit the form using AJAX.
   $.ajax({
       type: 'POST',
+      dataType: 'json',
       url: $(signup_form).attr('action'),
       data: signupFormData
   })
-  .done(function(response) {
+  .done(function(data) {
+
+	if(data.result == 'success')
+	{
+		$('#userWasCreated').show();
+
+	}
+	else if(data.result == 'User already exist')
+	{
+		$('#userAlreadyexists').show();
+		
+
+	}
       // Make sure that the formMessages div has the 'success' class.
-      alert("Welcome to UMBC Xchange! \n Please Log In.");
-      console.log("success");
+      
+     
   })
   .fail(function(data) {
 
