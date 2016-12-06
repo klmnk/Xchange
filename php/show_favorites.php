@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 } 
 
 
-$items_query = "SELECT * FROM `Products` ORDER BY category";
+$items_query = "SELECT * FROM `Wishlisted` WHERE `user_id`=1";
 
 $items = $conn->query($items_query);
 
@@ -25,116 +25,69 @@ if (!$items)
     exit('<p> Error: ' . mysql_error() . '</p>');
 }
 
-// due to time constraints hard-coded for the demo/testing purpose
-$counter = 1;
-$displayAllProducts = '<div class="container">
+if ($items->num_rows == 0){
+    print '<p>Your Wishlist is empty</p>';
+}
 
-            <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <h2>Your Wish List</h2>
-            </div>
-            </div>
+if ($items->num_rows > 0){
 
-			<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-	    		<h2>Favorite Items</h2>
-			</div>
-			</div>';
-			
-//$displayAllProducts .= "<table>";
-if ($items->num_rows > 0)
-{
-    // print out items 3 in a row
-    while($row = $items->fetch_assoc())
-    {
+    print '<p><h2>Items in your wishlist</h2></p>';
+    while($row = $items->fetch_assoc()) {
 
-    //print_r($row);
+        $product_id = $row["product_id"];
+        $products_query = "SELECT * FROM `Products` WHERE `id`='$product_id'";
+        $wishlisted_products = $conn->query($products_query);
 
-    if($counter%3 == 1)  // If number is 1,4,7,etc start a new row
-    {
-    // show category as its own row before each new row
-    $displayAllProducts.= '<div class="row">';
+        if (!$wishlisted_products) { exit('<p> Error: ' . mysql_error() . '</p>'); }
+
+        $counter = 1;
+        $displayAllProducts = '';
+
+        if ($wishlisted_products->num_rows > 0) 
+        {
+            while ($row = $wishlisted_products->fetch_assoc()) 
+            {
+
+                if($counter%3 == 1)  // If number is 1,4,7,etc start a new row
+                {
+                    // show category as its own row before each new row
+                    $displayAllProducts.= '<div class="row">';
+                }
+
+                $displayAllProducts.='
+                    <div class="col-md-3"> 
+                        <div class="thumbnail">
+                            <a onclick="javascript:showItemDetails(this)" >
+                            <img src="'.$row["image_link"].'" alt="Moustiers Sainte Marie" style="width:100%">
+                            <div class="caption">
+                                <p><h4>'.$row["item_name"].'</h4></p>
+                            </div>
+                            </a>
+                        </div>
+                    </div>';
+
+            if($counter%3 == 0) // If number is 3,6,9,etc close the row
+            {
+                $displayAllProducts.= "</div>";
+            }
+
+            $counter++; // increase the counter to start again
+
+              }  // ends While loop
+
+            if($counter%3 != 0)
+            {
+                $displayAllProducts.= "</div>";
+            }
+
+            $displayAllProducts .=  '</div>'; //Close container
+            print $displayAllProducts;
+        }
     }
-
-    $displayAllProducts.='<div class="col-md-3">
-                  <div class="thumbnail">
-        <!--        <a href="/w3images/nature.jpg" target="_blank"> -->
-        <a onclick="javascript:showItemDetails(this)" >
-              <img src="'.$row["image_link"].'" alt="Moustiers Sainte Marie" style="width:100%">
-                  <div class="caption">
-                    <p>Lorem ipsum donec id elit non mi porta gravida at eget metus.</p>
-                  </div>
-                </a>
-                  </div>
-                </div>';
-
-
-
-    if($counter%3 == 0) // If number is 3,6,9,etc close the row
-    {
-        $displayAllProducts.= "</div>";
-    }
-
-    $counter++; // increase the counter to start again
-
-      }  // ends While loop
-
-    if($counter%3 != 0)
-    {
-        $displayAllProducts.= "</div>";
-    }
-
-
-
-    $displayAllProducts .=  '</div>'; //Close container
-    print $displayAllProducts;
-    }
+}
 
 
 // close the connection
-
-	//print_r($row);
-
-	if($counter%3 == 1)  // If number is 1,4,7,etc start a new row
-	{
-	// show category as its own row before each new row
-	$displayAllProducts.= '<div class="row">';
-	}
-
-	$displayAllProducts.='<div class="col-md-3">
-			      <div class="thumbnail">
-		<!--		<a href="/w3images/nature.jpg" target="_blank"> -->
-        <a onclick="javascript:showItemDetails(this)" >
-    		  <img src="'.$row["image_link"].'" alt="Moustiers Sainte Marie" style="width:100%">
-				  <div class="caption">
-				    <p>Lorem ipsum donec id elit non mi porta gravida at eget metus.</p>
-				  </div>
-				</a>
-			      </div>
-			    </div>';
-
-
-
-	if($counter%3 == 0) // If number is 3,6,9,etc close the row
-	{
-		$displayAllProducts.= "</div>";
-	}
-
-	$counter++; // increase the counter to start again
-
-
-	if($counter%3 != 0)
-	{
-		$displayAllProducts.= "</div>";
-	}
-
-
-
-	$displayAllProducts .=  '</div>'; //Close container
-	print $displayAllProducts;
-
-
-
 $conn->close();
 
 ?>
