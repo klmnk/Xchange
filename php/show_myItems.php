@@ -1,4 +1,10 @@
 <?php
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+	$user = $_POST['user_id'];
+}
+
 //information for connecting to database
 $servername = "104.236.58.254";
 $username = "umbcxchange";
@@ -14,10 +20,27 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$items_query = "SELECT * FROM `Products` ORDER BY category";
+$user = 1; // delete when the actual user info is passed
+
+$sold_items_query = "SELECT * FROM `Products` WHERE `seller`=$user AND `category`=1";
+
+$sold_items = $conn->query($sold_items_query);
+////
+
+if (!$sold_items)
+{
+    exit('<p> Error: ' . mysql_error() . '</p>');
+}
+print '<h2>Items traded</h2>';
+if ($sold_items->num_rows == 0) {
+	print '<p> You have not traded any items yet. </p>';
+}
+
+print '<br><br><h2>Items currently listed for trading</h2>';
+
+$items_query = "SELECT * FROM `Products` WHERE `seller`=$user";
 
 $items = $conn->query($items_query);
-////
 
 if (!$items)
 {
@@ -26,25 +49,14 @@ if (!$items)
 
 // due to time constraints hard-coded for the demo/testing purpose
 $counter = 1;
-$displayAllProducts = '<div class="container">
-			<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-	    		<h2>My Items</h2>
-			</div>
-			</div>';
-//$displayAllProducts .= "<table>";
+$displayAllProducts = '<br>';
+
 if ($items->num_rows > 0)
 {
-    // print out items 3 in a row
-    while($row = $items->fetch_assoc())
-    {
+    while($row = $items->fetch_assoc()) {
 
-	//print_r($row);
-
-	if($counter%3 == 1)  // If number is 1,4,7,etc start a new row
-	{
-	// show category as its own row before each new row
-	$displayAllProducts.= '<div class="row">';
+	if($counter%3 == 1) {
+		$displayAllProducts.= '<div class="row">';
 	}
 
 	$displayAllProducts.='<div class="col-md-3">
