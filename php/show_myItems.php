@@ -54,6 +54,7 @@ if ($items->num_rows > 0)
 {
     while($row = $items->fetch_assoc()) {
         $displayAllProducts.='
+            <div class="row" style="margin-bottom:20px;">
             <div class="col-md-12"> 
                 <div class="col-md-4">
                     <a onclick="javascript:showItemDetails(this)" >
@@ -67,12 +68,13 @@ if ($items->num_rows > 0)
                     <div class="caption">
                         <p><h4>'.$row["description"].'</h4></p>
                         <p>Sold by '.$row["seller"].'</p>
-                        <button type="button" type="submit" class="btn btn-danger pull-left" onclick="contactUser()">Delete ad</button>
-                        <button type="button" type="submit" class="btn btn-success pull-left" onclick="contactUser()">Mark sold</button>
+                        <button type="button" type="submit" class="btn btn-danger" onclick="contactUser()">Delete ad</button>
+                        <button type="button" type="submit" class="btn btn-success" onclick="contactUser()">Mark sold</button>
                     </div>
                 </div>
-            </div>';
+            </div></div>';
       }  // ends While loop
+
       print $displayAllProducts;
 }
 $conn->close();
