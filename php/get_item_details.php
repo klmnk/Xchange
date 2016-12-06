@@ -38,11 +38,20 @@ if ($items->num_rows > 0)
     {
       $responseData['result'] = 'success';
       $responseData['item_name'] =  $row["item_name"] ;
-		  $responseData["seller"] = $row["seller"];
+		  // $responseData["seller"] = $row["seller"];
 		  $responseData["condition"] = $row["condition"];
 		  $responseData["manufacturer"] = $row["manufacturer"];
 		  $responseData["description"] = $row["description"];
       $responseData["image_link"] = $row["image_link"];
+
+      //$responseData["seller"] = $row["seller"];
+      $x = $row["seller"];
+      $seller_query = "SELECT * FROM `Users` WHERE `id`='$x' ";
+      $seller_fullname = $conn->query($seller_query);
+      while($row = $seller_fullname->fetch_assoc()) {
+        $seller_name = $row["firstname"] . " " . $row["lastname"];
+      }
+      $responseData["seller"] = $seller_name;
 
 	}
 }
