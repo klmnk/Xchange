@@ -22,7 +22,7 @@ if ($conn->connect_error) {
 }
 
 // temporarily hard-coded
-$user_query = "SELECT * FROM  `Users` WHERE  `id` = 3";
+$user_query = "SELECT * FROM  `Users` WHERE  `id` = 0";
 $user = $conn->query($user_query);
 
 if (!$user)
@@ -40,7 +40,10 @@ if ($user->num_rows > 0)
 		$lastname = $row["lastname"] ;
 		$ID =  $row["umbcid"];
 		$user_since = $row["register_date"];
+    $last_login = $row["last_login_date"];
 		$rating = $row["rating"];
+    $purchased = $row["products_bought"];
+    $sold = $row["products_sold"];
 	/*
 		echo "<ul>" . "<pre>";
 		echo "firstname:  "  . $row["firstname"] . "<br><br>";
@@ -69,7 +72,8 @@ $conn->close();
     <img src="./images/img_avatar.png" id="userImage" alt="Avatar" style="width:100%">
     <div class="container">
       <h4><b><?php echo $firstname . ' ' . $lastname ;?></b></h4>
-      <p><?php echo $user_since;?></p>
+      <p>registred since <?php echo $user_since;?></p>
+      <p>last online     <?php echo $user_since;?></p>
     </div>
   </div>
 </div>
@@ -110,7 +114,7 @@ $conn->close();
 <div class="form-group">
   <label class="col-md-4 control-label" for="basicdetails_duration">Rating</label>
   <div class="col-md-4">
-  <input id="basicdetails_duration" name="basicdetails_duration" type="text" placeholder="enter duration" class="form-control input-md">
+  <input id="basicdetails_duration" name="basicdetails_duration" type="text" placeholder="<?php echo $rating;?>" class="form-control input-md">
 
   </div>
 </div>
@@ -128,7 +132,7 @@ $conn->close();
 <div class="form-group">
   <label class="col-md-4 control-label" for="basicdetails_duration">Purchased</label>
   <div class="col-md-4">
-  <input id="basicdetails_duration" name="basicdetails_duration" type="text" placeholder="enter duration" class="form-control input-md">
+  <input id="basicdetails_duration" name="basicdetails_duration" type="text" placeholder="<?php echo $purchased;?>" class="form-control input-md">
 
   </div>
 </div>
@@ -137,7 +141,7 @@ $conn->close();
 <div class="form-group">
   <label class="col-md-4 control-label" for="basicdetails_duration">Sold</label>
   <div class="col-md-4">
-  <input id="basicdetails_duration" name="basicdetails_duration" type="text" placeholder="enter duration" class="form-control input-md">
+  <input id="basicdetails_duration" name="basicdetails_duration" type="text" placeholder="<?php echo $sold;?>" class="form-control input-md">
 
   </div>
 </div>
