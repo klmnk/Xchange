@@ -1,39 +1,3 @@
-<div class="modal hide fade in" id="myModal" style="display: none;">
-    <div class="modal-header">
-        <a class="close" href="#">×</a>
-        <h3>Modal Heading</h3>
-    </div>
-    <div class="modal-body">
-         <p>One fine body…</p>
-    </div>
-    <div class="modal-footer">
-        <a class="btn primary" href="#">Primary</a>
-        <a class="btn secondary" href="#">Secondary</a>
-    </div>
- </div>
-
-
- <!-- Modal -->
-<div id="myModal2" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
 
 <!-- password reset modal -->
 <div class="modal fade" id="password_modal" role="dialog">
@@ -126,27 +90,27 @@
                     <table class="pull-left col-md-8 ">
                          <tbody>
                              <tr>
-                                 <td class="h6"><strong>Sold by </strong></td>
+                                 <td class="h8"><strong>Sold by </strong></td>
                                  <td> </td>
-                                 <td id="itemSoldBy" class="h5">Products.seller</td>
+                                 <td id="itemSoldBy" class="h8">Products</td>
                              </tr>
 
                              <tr>
-                                 <td class="h6"><strong>Condition</strong></td>
+                                 <td class="h8"><strong>Condition</strong></td>
                                  <td> </td>
-                                 <td id="itemCondition" class="h5">used</td>
+                                 <td id="itemCondition" class="h8">used</td>
                              </tr>
 
                              <tr>
-                                 <td class="h6"><strong>    </strong></td>
+                                 <td class="h8"><strong>    </strong></td>
                                  <td></td>
-                                 <td class="h5"></td>
+                                 <td class="h8"></td>
                              </tr>
 
                              <tr>
-                                 <td class="h6"><strong>Manufacturer</strong></td>
+                                 <td class="h8"><strong>Manufacturer</strong></td>
                                  <td> </td>
-                                 <td class="h5">Asus</td>
+                                 <td class="h8">Asus</td>
                              </tr>
 
                              <tr>
@@ -155,7 +119,7 @@
                                      <i class="open_info hide fa fa-minus-square-o"></i> see description
                                  </td>
                                  <td> </td>
-                                 <td class="h5"></td>
+                                 <td class="h6"></td>
                              </tr>
                          </tbody>
                     </table>
@@ -170,15 +134,10 @@
 
                   <div class="modal-footer">
 
-                    <div class="text-right pull-right col-md-3">
-                        Varejo: <br/>
-                        <span class="h3 text-muted"><strong> R$50,00 </strong></span></span>
-                    </div>
+                    <button type="button" type="submit" class="btn btn-link pull-left" onclick="addToFavorites()">Add to favorites</button>
+                    <button type="button" type="submit" class="btn btn-success pull-right" onclick="contactUser()">Contact User</button>
+                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
 
-                    <div class="text-right pull-right col-md-3">
-                        Atacado: <br/>
-                        <span class="h3 text-muted"><strong>R$35,00</strong></span>
-                    </div>
 
                 </div>
               </div>
