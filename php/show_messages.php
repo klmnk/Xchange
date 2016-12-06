@@ -2,12 +2,7 @@
 
  $displayMessages = '<div class="container">
 
-    <div class="alert alert-info">
-        <a id="fullscreen" href="#fullscreen" class="alert-link"><strong>Click here</strong></a> to view this snippet in an iframe.
-        <i class="fa fa-info-circle fa-2x pull-right"></i>
-    </div>
-
-    <h1> <i class="fa fa-shopping-cart"></i> Messages</h1>
+    <h1> <i class="fa fa-envelope"></i> Messages</h1>
 
     <hr>
 
