@@ -6,11 +6,7 @@ $(document).ready(function() {
 
    $( "#logoutBtn" ).click(function() {
 
-     console.log("clicked");
-      // $("#logOutModal").modal('show');
-      console.log("user " + userName + " was logged out");
        $("#logOutModal").modal('show');
-
 
    });
 
@@ -64,31 +60,25 @@ $(document).ready(function() {
           	else if(id == "myItemsPage"){url = './php/show_myItems.php';}
           	else if(id == "messagesPage"){url = './php/show_messages.php';}
 
-
         	$.get(url, function(data) {
          		 $('#content_frame').html(data);
         	});
 
-
-
         }
-
+	
+	//uploadItemImage
         function uploadItemImage()
         {
           console.log('in upload Item');
 
-        //  var input = $('#uploadItemPictureInput');
           var input = document.getElementById("uploadItemPictureInput");
-      //    if(input){console.log("input is not empty");}
-      //    else{console.log("input is empty");}
 
-      //    console.log(input);
           console.log(input.files);
 
           console.log(input.files[0].type);
 
           if (input.files && input.files[0]) {
-            console.log('input has files');
+
           newItemImage = input.files[0];
 
           var reader = new FileReader();
@@ -107,39 +97,65 @@ $(document).ready(function() {
         function uploadItem()
         {
           var form = document.getElementById('newItemForm');
+
           form.onsubmit = function(event)
             {
             event.preventDefault();
             }
            var newItemFormData =  new FormData(form);
-           //$(form).serialize();
-           console.log(newItemFormData);
+
            newItemFormData.append('image_file', newItemImage, newItemImage.name);
+
            newItemFormData.append('umbc_id', userName);
 
 
-    $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        url: './php/upload_item.php',
-        data: newItemFormData,
-        cache: false,
-        processData: false, // Don't process the files
-        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
-        success: function(data) {
-                  
-		             var opts = [];
-		             opts.title = "Great!";
-            	   opts.text = "New Item was uploaded successfully!";
-                 opts.type = "success";	
-		             showMessage(opts);
+	    $.ajax({
+		type: 'POST',
+		dataType: 'json',
+		url: './php/upload_item.php',
+		data: newItemFormData,
+		cache: false,
+		processData: false, // Don't process the files
+		contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+		success: function(data) {
+		          
+				     var opts = [];
+				     opts.title = "Great!";
+		    	   	     opts.text = "New Item was uploaded successfully!";
+		                     opts.type = "success";	
+				     showMessage(opts);
+
+		}
+	    });
 
         }
-    });
 
 
+	//uploadUserImage
+        function uploadUserImage()
+        {
+          console.log('in upload Item');
 
+          var input = document.getElementById("uploadUserPictureInput");
 
+          console.log(input.files);
+
+          console.log(input.files[0].type);
+
+          if (input.files && input.files[0]) {
+
+          profileImage = input.files[0];
+
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+              $('#userImage').attr('src', e.target.result);
+          }
+
+          reader.readAsDataURL(input.files[0]);
+        }
+
+          $('#uploadUserPictureModal').modal('hide');
         }
 
 
