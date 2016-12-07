@@ -115,6 +115,7 @@ $(document).ready(function() {
            //$(form).serialize();
            console.log(newItemFormData);
            newItemFormData.append('image_file', newItemImage, newItemImage.name);
+           newItemFormData.append('umbc_id', userName);
 
 
     $.ajax({
@@ -126,12 +127,12 @@ $(document).ready(function() {
         processData: false, // Don't process the files
         contentType: false, // Set content type to false as jQuery will tell the server its a query string request
         success: function(data) {
-
-		 var opts = [];
-		 opts.title = "Great!";
-            	 opts.text = "New Item was uploaded successfully!";
+                  
+		             var opts = [];
+		             opts.title = "Great!";
+            	   opts.text = "New Item was uploaded successfully!";
                  opts.type = "success";	
-		 showMessage(opts);
+		             showMessage(opts);
 
         }
     });
