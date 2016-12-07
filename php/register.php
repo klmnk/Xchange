@@ -6,6 +6,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$first_name = $_POST['first_name'];
 	$last_name = $_POST['last_name'];
 	$user_password = $_POST['password'];
+
+	$pieces = explode("@", $email);
+	$user_folder_name = $pieces[0];
 }
 //	print_r($_POST);
 
@@ -70,6 +73,8 @@ else {
 	$insert_query = "INSERT INTO Users (id, umbcid, firstname, lastname, password) VALUES ('$num_users','$email', '$first_name', '$last_name', '$user_password')";
 	if ($conn->query($insert_query) === TRUE) {
 		$responseData['result'] = "success";
+		$user_folder_path = '/opt/lampp/temp/'. $user_folder_name;
+		mkdir($user_folder_path, 0755);
     //	echo "";
 	}
 	else {

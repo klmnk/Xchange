@@ -72,7 +72,6 @@ $(login_form).submit(function(e) {
 	      	console.log(data.cookie_name);
 	       	console.log(data.cookie_value);
 		
-	   //   window.location.href = 'main.html'
 		$("#cookie_name").val(data.cookie_name);
 		$("#cookie_value").val(data.cookie_value);
 		$("#submitUserForm").submit();
@@ -80,11 +79,19 @@ $(login_form).submit(function(e) {
 	}
 	else if(data.result == 'user was not found')
 	{
-		$('#userNotFound').show();
+		 var opts = [];
+		 opts.title = "Can't login!";
+		 opts.text = "User was not found.";
+                 opts.type = "error";	
+		 showMessage(opts, 4000);
 	}
 	else if(data.result == 'password does not match')
 	{
-		$('#wrongPassword').show();
+		 var opts = [];
+		 opts.title = "Can't login!";
+		 opts.text = "Password/Username combination does not match";
+                 opts.type = "error";	
+		 showMessage(opts, 4000);
 	}
  
   })
@@ -132,13 +139,21 @@ $(signup_form).submit(function(e) {
 
 	if(data.result == 'success')
 	{
-		$('#userWasCreated').show();
+		 var opts = [];
+		 opts.title = "Welcome to UMBC Xchange!";
+		 opts.text = "User was created successfully. Please login.";
+                 opts.type = "success";	
+		 showMessage(opts);
+
 
 	}
 	else if(data.result == 'User already exist')
 	{
-		$('#userAlreadyexists').show();
-		
+		 var opts = [];
+		 opts.title = "Can't sign up";
+		 opts.text = "User already exists! Please login.";
+                 opts.type = "error";	
+		 showMessage(opts);
 
 	}
       // Make sure that the formMessages div has the 'success' class.
@@ -148,14 +163,7 @@ $(signup_form).submit(function(e) {
   .fail(function(data) {
 
       console.log("fail");
-      // Set the message text.
-      /*
-      if (data.responseText !== '') {
-          $(formMessages).text(data.responseText);
-      } else {
-          $(formMessages).text('Oops! An error occured and your message could not be sent.');
-      }
-	*/
+
   });
 
 }//valid
@@ -182,14 +190,26 @@ function validate_form()
 
 	if(!valid_umbc_email)
 	{
-		alert("Email address does not belong to UMBC");
+	 //	alert("Email address does not belong to UMBC");
+		 var opts = [];
+		 opts.title = "Error!";
+		 opts.text = "This e-mail address does not belong to UMBC";
+                 opts.type = "error";	
+		 showMessage(opts);
+		
 		return false;
 		
 	}
 
 	if(!password_valid )
-	{
+	{/*
 		alert("Password is not valid!\nIt should contain\n1 lowercase alphabetical character \n1 uppercase alphabetical character \n1 numeric character \n And must be six characters or longer");
+*/
+		 var opts = [];
+		 opts.title = "Password is not valid!";
+		 opts.text = "It should contain\n1 lowercase alphabetical character \n1 uppercase alphabetical character \n1 numeric character \n And must be six characters or longer";
+                 opts.type = "error";	
+		 showMessage(opts,5000);
 		return false;
 		
 	}
@@ -197,6 +217,14 @@ function validate_form()
 	
 	return true;
 	
+
+}
+
+function showMessage(opts, delay = 3000)
+{
+	    PNotify.prototype.options.styling = "bootstrap3";
+            PNotify.prototype.options.delay = delay;
+            new PNotify(opts);
 
 }
 

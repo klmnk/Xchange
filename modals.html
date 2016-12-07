@@ -59,6 +59,31 @@
   </div>
 </div>
 
+<!-- Upload Item Picture Modal -->
+<div class="modal fade" id="uploadItemPictureModal" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Select Item Pictue</h4>
+      </div>
+      <div class="modal-body">
+          <form id="uploadForm" METHOD=post ENCTYPE='multipart/form-data' action="file_handler.php">
+              <INPUT NAME=uploadFile id="uploadItemPictureInput"  TYPE="file" accept="image/*"  required>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" type="submit" class="btn btn-primary" onclick="uploadItemImage()">Upload</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
 <!-- Logout modal -->
 
 <div class="modal bs-example-modal-sm" id="logOutModal"tabindex="-1" role="dialog" aria-hidden="true">
@@ -142,22 +167,17 @@
                 </div>
               </div>
             </div>
-            </div><!-- Item Details Modal-->
-
-
-
-
+            </div>
+<!-- Item Details Modal-->
 
 
 <!--Send Message Modal -->
-
-
             <div class="modal" id="sendMessageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="text-danger fa fa-times"></i></button>
-                    <h4 class="modal-title" "><i class="text-muted fa fa-envelope"></i> <strong>Send Message</strong> </h4>
+                    <h4 class="modal-title"><i class="text-muted fa fa-envelope"></i> <strong>Send Message</strong> </h4>
                   </div>
                   <div class="modal-body">
                           <form class="form-horizontal" role="form" method="post" action="index.php">
@@ -174,7 +194,7 @@
                               </div>
                             </div>
 
-              </form>
+                          </form>
 
                   </div>
 
@@ -188,4 +208,27 @@
               </div>
             </div>
             </div>
-            <!-- Item Details Modal-->
+  <!-- Send message Modal-->
+
+<!-- Confirm upload item -->
+
+<div class="modal fade" id="confirmUploadItemModal" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Confirm Upload Item</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure want to upload new item?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" onclick="uploadItem()">Upload</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

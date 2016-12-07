@@ -65,7 +65,7 @@
 <!-- >>>>>>> b4437fcd53ff398bac0610b295ad72b0045acf5a
  -->
 	<div class="row">
-	 <div class="col-md-6 col-md-offset-2">
+	 <div class="col-md-6 col-sm-8 col-xs-8 col-md-offset-2">
 	    <div class="input-group">
 	      <input type="text" class="form-control" placeholder="Search for...">
 	      <span class="input-group-btn">
@@ -87,6 +87,7 @@
         <div class="sideBarButton"><a class="sideBarLink" id = "profilePage" onclick="showPage(this.id)"><i class="fa fa-user" aria-hidden="true"></i> Profile</a></div>
         <div class="sideBarButton"><a class="sideBarLink" id = "favoritesPage" onclick="showPage(this.id)"><i class="fa fa-star" aria-hidden="true"></i> My Favorites</a></div>
         <div class="sideBarButton"><a class="sideBarLink" id = "myItemsPage" onclick="showPage(this.id)"><i class="fa fa-list" aria-hidden="true"></i> My Items</a></div>
+        <div class="sideBarButton"><a class="sideBarLink" id = "uploadItemPage" onclick="showPage(this.id)"><i class="fa fa-upload" aria-hidden="true"></i> Upload Item</a></div>
         <div class="sideBarButton"><a class="sideBarLink" id = "messagesPage" onclick="showPage(this.id)"><i class="fa fa-envelope" aria-hidden="true"></i> Messages</a></div>
 
     </div><!--sideMenu -->
@@ -99,156 +100,14 @@
 
 <?php include 'modals.html'; ?>
 
-  </body>
-   <script>
+ <script>
+ var userName = <?php echo "'".$userName."'";?>;
+ var sellerID;
+ var newItemImage;
+ var profileImage;
 
-   var userName = <?php echo "'".$userName."'";?>;
-   var sellerID;
+ </script>
+ <script src="js/main.js"></script>
 
-   $( "#logoutBtn" ).click(function() {
-
-     console.log("clicked");
-      // $("#logOutModal").modal('show');
-      console.log("user " + userName + " was logged out");
-       $("#logOutModal").modal('show');
-
-
-   });
-
-
-
-$(document).ready(function() {
-  // Hide the 'cover' div
-    console.log("page was loaded");
-});
-
-   /*show additional info in Item Details Modal */
-   $('.btn-mais-info').on('click', function(event) {
-       $( '.open_info' ).toggleClass( "hide" );
-   })
-
-
-   $(".img").on("load",function(){
-             console.log("all images were loaded");
-       });
-
-   $(function() {
-
-     //Start loading items when first time redirected to main.html
-             	$.get('./php/show_home.php', function(data) {
-              		 $('#content_frame').html(data);
-             	});
-
-
-
-     // Handler for .ready() called.
-   $("#content_frame").on("click", "#resetPswdBtn", function(){
-       $("#password_modal").modal('show');
-   });
-   $("#content_frame").on("click", "#userImage", function(){
-       $("#uploadUserPictureModal").modal('show');
-   });
-
-
-   });
-
-
-        function showPage(id)
-        {
-        	alert(id);
-        	var url = "";
-        	if (id == "homePage"){url = './php/show_home.php';}
-        	else if(id == "profilePage"){url = './php/show_profile.php';}
-        	else if(id == "favoritesPage"){url = './php/show_favorites.php';}
-        	else if(id == "uploadPage"){url = './php/show_upload.php';}
-          else if(id == "favoritesPage"){url = './php/show_favorites.php';}
-          else if(id == "myItemsPage"){url = './php/show_myItems.php';}
-          else if(id == "messagesPage"){url = './php/show_messages.php';}
-
-        	$.get(url, function(data) {
-         		 $('#content_frame').html(data);
-        	});
-
-
-
-        }
-
-        function showItemDetails(id)
-        {
-        	console.log("show item details"+ id);
-        //	alert(id);
-      //    var formData = new FormData();
-      //    formData.append("item_id", id);
-      //    var itemData = $(formData).serialize();
-          // Get Item details with AJAX call
-        //  var itemData =[];
-        //  itemData['item_id'] = id;
-          $.ajax({
-              type: 'POST',
-          //    dataType: 'json',
-              url: './php/get_item_details.php',
-          //    data: JSON.stringify({'item_id':id}),
-                data: {'item_id':id},
-          })
-          .done(function(data) {
-              // Make sure that the formMessages div has the 'success' class.
-            //  console.log(data);
-            //Parse JSON object
-          var objData = jQuery.parseJSON(data);
-
-          if(objData.result == 'success')
-          {
-
-                  var modalLabel = '<i class="text-muted fa fa-shopping-cart"></i> <strong>' + objData.item_name + '</strong>';
-                  $("#myModalLabel").html(modalLabel);
-                  var itemDetailsImage = '<img src="'+objData.image_link+'" alt="teste" class="img-thumbnail">';
-                  $("#itemDetailsImage").html(itemDetailsImage);
-                  $("#itemSoldBy").html(objData.seller);
-                  $("#itemCondition").html(objData.condition);
-                  $("#itemDescription").html(objData.description);
-                  $("#itemManufacturer").html(objData.manufacturer);
-
-                  $("#itemDetailsModal").modal('show');
-
-          }
-          else if(objData.result == 'error')
-          {
-            console.log("error occured when trying to retrieve information");
-            //$('#userNotFound').show();
-          }
-
-
-          })
-          .fail(function(data) {
-
-              console.log("fail");
-              // Set the message text.
-          });
-
-
-
-        }
-
-        function addToFavorites(){
-            PNotify.prototype.options.styling = "bootstrap3";
-            PNotify.prototype.options.delay = 2000;
-
-            var opts = [];
-          //  opts.title = "Item was added to favorites!";
-            opts.text = "Item was added to favorites!";
-            opts.type = "info";
-            new PNotify(opts);
-
-        }
-        function contactUser(){
-            $('#itemDetailsModal').modal('hide');
-              $('#sendMessageModal').modal('show');
-
-        }
-
-
-
-
-    </script>
-<script src="js/main.js"></script>
+</body>
 </html>
