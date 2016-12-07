@@ -48,39 +48,26 @@ if ($items->num_rows > 0){
             while ($row = $wishlisted_products->fetch_assoc()) 
             {
 
-                if($counter%3 == 1)  // If number is 1,4,7,etc start a new row
-                {
-                    // show category as its own row before each new row
-                    $displayAllProducts.= '<div class="row">';
-                }
-
                 $displayAllProducts.='
-                    <div class="col-md-3"> 
-                        <div class="thumbnail">
+                    <div class="col-md-12"> 
+                        <div class="col-md-4">
                             <a onclick="javascript:showItemDetails(this)" >
-                            <img src="'.$row["image_link"].'" alt="Moustiers Sainte Marie" style="width:100%">
-                            <div class="caption">
-                                <p><h4>'.$row["item_name"].'</h4></p>
-                            </div>
+                                <img src="'.$row["image_link"].'" alt="Moustiers Sainte Marie" style="width:100px">
+                                <div class="caption">
+                                    <p><h4>'.$row["item_name"].'</h4></p>
+                                </div>
                             </a>
                         </div>
+                        <div class="col-md-8">
+                            <div class="caption">
+                                <p><h4>'.$row["description"].'</h4></p>
+                                <p>Sold by '.$row["seller"].'</p>
+                                <button type="button" type="submit" class="btn btn-success pull-left" onclick="contactUser()">Contact User</button>
+                            </div>
+                        </div>
                     </div>';
-
-            if($counter%3 == 0) // If number is 3,6,9,etc close the row
-            {
-                $displayAllProducts.= "</div>";
-            }
-
-            $counter++; // increase the counter to start again
-
               }  // ends While loop
 
-            if($counter%3 != 0)
-            {
-                $displayAllProducts.= "</div>";
-            }
-
-            $displayAllProducts .=  '</div>'; //Close container
             print $displayAllProducts;
         }
     }
