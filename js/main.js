@@ -65,8 +65,21 @@ $(document).ready(function() {
         	});
 
         }
-	
+
 	//uploadItemImage
+
+        $("#search_button").click(function(){
+            var search_string = $("#search_input").val();
+            console.log(search_string);
+            var url = "./php/search.php?search="+search_string;
+             console.log(url);
+          $.get(url, function(data) {
+             $('#content_frame').html(data);
+          });
+
+        });
+
+
         function uploadItemImage()
         {
           console.log('in upload Item');
