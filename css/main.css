@@ -62,6 +62,11 @@ div.sideBarButton:hover{
     color: #FFCC00;
 }
 
+.userLabel{
+     font-family: 'Titillium Web', sans-serif;
+     font-size: 20px;
+}
+
 iframe{
     padding-left: 5%;
 }

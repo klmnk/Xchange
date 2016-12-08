@@ -1,5 +1,15 @@
 
 <?php
+
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+
+  $userID = $_GET['userID'] . "@umbc.edu";
+
+}
+else{
+  exit();
+}
+
 //information for connecting to database
 $servername = "104.236.58.254";
 $username = "umbcxchange";
@@ -18,13 +28,13 @@ $purchased = "";
 $conn = new mysqli($servername, $username, $password, $DBname);
 
 // Validate the connection
-if ($conn->connect_error) 
+if ($conn->connect_error)
 {
     die("Connection failed: " . $conn->connect_error);
 }
 
 // temporarily hard-coded
-$user_query = "SELECT * FROM  `Users` WHERE  `id` = 0";
+$user_query = "SELECT * FROM  `Users` WHERE  `umbcid` = '$userID'";
 $user = $conn->query($user_query);
 
 if (!$user) {  exit('<p> Error: ' . mysql_error() . '</p>'); }
@@ -112,8 +122,9 @@ $conn->close(); // close the connection
 
   <div class="form-group">
     <div class="row">
-      <div class="col-md-4 col-md-offset-5">
+      <div class="col-md-5 col-md-offset-3">
         <button type="button" id="resetPswdBtn" class="btn btn-default"><span class="glyphicon glyphicon-lock"></span> Reset Password</button>
+        <button type="button" id="uploadItemBtn" class="btn btn-success col-md-offset-1"> Apply Changes </button>
       </div>
     </div>
   </div>

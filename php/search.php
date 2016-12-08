@@ -22,7 +22,7 @@ if ($conn->connect_error) {
 
 if(isset($_GET['search'])){
 
-  
+
   if(preg_match("/^[  a-zA-Z]+/", $search)){
 
     //-query  the database table
@@ -33,7 +33,7 @@ if(isset($_GET['search'])){
     $counter = 1;
     $displayAllProducts = '<div class="container">
           <div class="row">
-          <div class="col-md-8"><h2>View all items available for barter</h2></div><br>
+          <div class="col-md-8"><h2>Search results</h2></div><br>
           </div>';
 
     if ($result->num_rows > 0)
@@ -43,9 +43,9 @@ if(isset($_GET['search'])){
           $item_name  =$row['item_name'];
           $seller=$row['seller'];
           $description=$row['description'];
-        
+
           if($counter%3 == 1) {  // If number is 1,4,7,etc start a new row
-          
+
             // show category as its own row before each new row
             $displayAllProducts.= '<div class="row">';
           }
@@ -61,7 +61,7 @@ if(isset($_GET['search'])){
                   </div></div>';
 
           if($counter%3 == 0) { // If number is 3,6,9,etc close the row
-          
+
             $displayAllProducts.= "</div>";
           }
 
@@ -76,6 +76,16 @@ if(isset($_GET['search'])){
 
           $displayAllProducts .=  '</div>'; //Close container
           print $displayAllProducts;
+        }
+
+        else
+        {
+          $displayAllProducts = '<div class="container">
+                    <div class="row">
+                    <div class="col-md-8"><h2>No results found <i class="fa fa-thumbs-down" aria-hidden="true"></i></h2></div><br>
+                </div></div>';
+              print $displayAllProducts;
+
         }
     }
   }

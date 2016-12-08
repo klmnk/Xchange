@@ -36,6 +36,7 @@
  $userName = $_POST['cookie_name'];
  $cookie_name = $_POST['cookie_name'];
  $cookie_value = $_POST['cookie_value'];
+ $userFirstName = $_COOKIE['name'];
 
  if(!isset($_COOKIE[$cookie_name]))
  {
@@ -74,6 +75,7 @@
 	    </div><!-- /input-group -->
 	  </div><!-- /.col-lg-6 -->
     <div class="col-md-4">
+      <label id="userLabel" class="col-md-offset-2 userLabel">Welcome User</label>
       <button type="button" id="logoutBtn" class="btn btn-default pull-right"><span class="glyphicon glyphicon-user"></span>  Logout</button>
     </div>
 	</div> <!--row-->
@@ -102,9 +104,11 @@
 
  <script>
  var userName = <?php echo "'".$userName."'";?>;
+ var userFirstName = <?php echo "'".$userFirstName."'";?>;
  var sellerID;
  var newItemImage;
  var profileImage;
+ var clickedItemID;
 
  </script>
  <script src="js/main.js"></script>

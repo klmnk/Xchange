@@ -18,6 +18,7 @@ $password = "umbcxchange";
 $DBname = "umbcxchange";
 
 $responseData  = [];
+$userFirstName = "";
 
 // Create connection to the database
 $conn = new mysqli($servername, $username, $password, $DBname);
@@ -48,12 +49,13 @@ if (!($users->num_rows > 0))
 
 else {
 
-	$user_password_query = "SELECT `password` FROM `Users` WHERE `umbcid` = '$email'";
+	$user_password_query = "SELECT `password`,`firstname`  FROM `Users` WHERE `umbcid` = '$email'";
 	$pass = $conn->query($user_password_query);
   $current_password = '';
     while($row = $pass->fetch_assoc())
     {
       $current_password = $row['password'];
+			$userFirstName = $row['firstname'];
     //echo "this email has not been registered before.";
     }
 
@@ -72,6 +74,9 @@ else {
     $responseData['cookie_value']  = $cookie_value;
 
     setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
+		$cookie_name = "name";
+		setcookie($cookie_name, $userFirstName, time() + (86400 * 30), "/");
+
   }
 }
 
